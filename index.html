@@ -47,4 +47,41 @@
         <p>端午節【休市＆供貨】線上調查系統</p>
     </div>
 
-    <div class
+    <div class="notice-card">
+        <i class="fa-solid fa-circle-info" style="color:var(--accent)"></i> 
+        <strong>填寫說明：</strong>請在下方輸入您的公司名稱，並針對 6/8 ~ 6/21 (共2週) 的每一天點選供貨狀態，完成後點擊最下方按鈕送出。
+    </div>
+
+    <div class="form-group">
+        <label>1. 您的公司名稱<span>*</span></label>
+        <input type="text" id="companyName" class="input-control" placeholder="例：遠雄蔬果物流公司" required>
+    </div>
+
+    <div class="section-title">2. 請選擇每日營運狀況 (共 14 天)</div>
+    <div id="dateRowsContainer"></div>
+
+    <div class="form-group" style="margin-top: 20px;">
+        <label>3. 備註說明 (選填)</label>
+        <textarea id="memo" class="input-control" rows="3" placeholder="如有特殊供貨時間或事項，請在此處說明..."></textarea>
+    </div>
+
+    <div class="bottom-bar">
+        <button type="button" class="submit-btn" id="submitBtn" onclick="submitForm()">
+            <i class="fa-solid fa-paper-plane"></i> 確認填寫無誤，送出資料
+        </button>
+    </div>
+</div>
+
+<div class="modal" id="successModal">
+    <div class="modal-content">
+        <i class="fa-solid fa-circle-check" style="font-size: 60px; color: var(--success);"></i>
+        <h2 style="margin:10px 0;">送出成功！</h2>
+        <p style="color:#64748b;">資料已安全寫入飯店雲端試算表。</p>
+        <div class="summary-box" id="summaryText"></div>
+        <button class="submit-btn" style="background:var(--primary);" onclick="location.reload()">確定</button>
+    </div>
+</div>
+
+<script>
+    // 這裡已經換成您提供給我的遠雄官方 Web App 金鑰網址
+    const GAS_URL = "
