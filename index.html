@@ -6,356 +6,42 @@
     <title>遠雄悅來 - 端午供貨調查</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        :root {
-            --primary: #003366; /* 遠雄悅來深藍 */
-            --accent: #d4af37;  /* 典雅金 */
-            --success: #2e7d32; /* 安全綠 */
-            --danger: #c62828;  /* 警告紅 */
-            --bg: #f8fafc;
-        }
-
-        * {
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: var(--bg);
-            margin: 0;
-            padding: 0;
-            color: #334155;
-            display: flex;
-            justify-content: center;
-        }
-
-        .app-container {
-            width: 100%;
-            max-width: 500px;
-            background: #ffffff;
-            min-height: 100vh;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            position: relative;
-            padding-bottom: 100px;
-        }
-
-        /* 頂部飯店橫幅 */
-        .app-header {
-            background: linear-gradient(135deg, var(--primary), #001f42);
-            color: white;
-            padding: 25px 20px;
-            text-align: center;
-            border-bottom: 4px solid var(--accent);
-        }
-
-        .app-header h1 {
-            margin: 0;
-            font-size: 24px;
-            letter-spacing: 1px;
-        }
-
-        .app-header p {
-            margin: 5px 0 0 0;
-            font-size: 14px;
-            opacity: 0.8;
-        }
-
-        /* 系統公告區 */
-        .notice-card {
-            background: #fff9e6;
-            border-left: 5px solid var(--accent);
-            padding: 15px;
-            margin: 15px;
-            border-radius: 4px;
-            font-size: 15px;
-            line-height: 1.5;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        /* 表單基本欄位 */
-        .form-group {
-            padding: 0 15px;
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            font-size: 18px;
-            margin-bottom: 8px;
-            color: var(--primary);
-        }
-
-        .form-group label span {
-            color: var(--danger);
-            margin-left: 4px;
-        }
-
-        .input-control {
-            width: 100%;
-            padding: 14px;
-            font-size: 18px;
-            border: 2px solid #cbd5e1;
-            border-radius: 8px;
-            outline: none;
-            transition: border 0.3s;
-        }
-
-        .input-control:focus {
-            border-color: var(--primary);
-        }
-
-        /* 核心防呆：日曆清單設計 */
-        .calendar-list {
-            padding: 0 15px;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: var(--primary);
-            margin: 20px 0 10px 0;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 5px;
-        }
-
-        .date-row {
-            background: #fff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 12px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-
-        .date-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .date-text {
-            font-size: 20px;
-            font-weight: bold;
-            color: #1e293b;
-        }
-
-        .date-tag {
-            background: #f1f5f9;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 13px;
-            color: #64748b;
-            font-weight: bold;
-        }
-
-        .date-tag.holiday {
-            background: #ffedd5;
-            color: #ea580c;
-        }
-
-        /* 大按鈕選擇器：4 等分 */
-        .option-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-        }
-
-        .opt-btn {
-            background: #f8fafc;
-            border: 2px solid #cbd5e1;
-            border-radius: 8px;
-            padding: 10px 2px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-            min-height: 75px;
-        }
-
-        .opt-btn .symbol {
-            font-size: 22px;
-            font-weight: bold;
-        }
-
-        .opt-btn .opt-name {
-            font-size: 11px;
-            font-weight: bold;
-            line-height: 1.2;
-            word-break: break-all;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        /* 點選後的顏色回饋（防呆） */
+        :root { --primary: #003366; --accent: #d4af37; --success: #2e7d32; --danger: #c62828; --bg: #f8fafc; }
+        * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: var(--bg); margin: 0; padding: 0; display: flex; justify-content: center; }
+        .app-container { width: 100%; max-width: 500px; background: #ffffff; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.1); position: relative; padding-bottom: 100px; }
+        .app-header { background: linear-gradient(135deg, var(--primary), #001f42); color: white; padding: 25px 20px; text-align: center; border-bottom: 4px solid var(--accent); }
+        .app-header h1 { margin: 0; font-size: 24px; letter-spacing: 1px; }
+        .app-header p { margin: 5px 0 0 0; font-size: 14px; opacity: 0.8; }
+        .notice-card { background: #fff9e6; border-left: 5px solid var(--accent); padding: 15px; margin: 15px; border-radius: 4px; font-size: 15px; line-height: 1.5; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .form-group { padding: 0 15px; margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: bold; font-size: 18px; margin-bottom: 8px; color: var(--primary); }
+        .form-group label span { color: var(--danger); margin-left: 4px; }
+        .input-control { width: 100%; padding: 14px; font-size: 18px; border: 2px solid #cbd5e1; border-radius: 8px; outline: none; }
+        .section-title { font-size: 18px; font-weight: bold; color: var(--primary); margin: 20px 0 10px 15px; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px; }
+        .date-row { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 15px; margin: 0 15px 12px 15px; }
+        .date-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .date-text { font-size: 20px; font-weight: bold; color: #1e293b; }
+        .date-tag { background: #ffedd5; color: #ea580c; padding: 4px 8px; border-radius: 6px; font-size: 13px; font-weight: bold; }
+        .option-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+        .opt-btn { background: #f8fafc; border: 2px solid #cbd5e1; border-radius: 8px; padding: 10px 2px; text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 75px; }
+        .opt-btn .symbol { font-size: 22px; font-weight: bold; }
+        .opt-btn .opt-name { font-size: 11px; font-weight: bold; line-height: 1.2; }
         .opt-btn[data-val="O"].active { background: #e8f5e9; border-color: var(--success); color: var(--success); }
         .opt-btn[data-val="X"].active { background: #ffebee; border-color: var(--danger); color: var(--danger); }
         .opt-btn[data-val="£"].active { background: #fff8e1; border-color: #f57f17; color: #f57f17; }
         .opt-btn[data-val="P"].active { background: #fff8e1; border-color: #e65100; color: #e65100; }
-
-        /* 底部固定提交欄 */
-        .bottom-bar {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            max-width: 500px;
-            background: #ffffff;
-            padding: 15px;
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
-            border-top: 1px solid #e2e8f0;
-            z-index: 100;
-        }
-
-        .submit-btn {
-            width: 100%;
-            background: var(--success);
-            color: white;
-            border: none;
-            padding: 16px;
-            font-size: 20px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(46, 125, 50, 0.2);
-        }
-
-        .submit-btn:disabled {
-            background: #94a3b8;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-
-        .submit-btn:active:not(:disabled) {
-            background: #1b5e20;
-        }
-
-        /* 管理後台面板樣式 */
-        .admin-panel {
-            display: none;
-            padding: 20px 15px;
-        }
-
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 3px solid var(--primary);
-            padding-bottom: 10px;
-        }
-
-        .admin-header h2 {
-            margin: 0;
-            color: var(--primary);
-            font-size: 22px;
-        }
-
-        .admin-table-wrapper {
-            width: 100%;
-            overflow-x: auto;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            background: white;
-            margin-bottom: 20px;
-        }
-
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-            min-width: 800px;
-        }
-
-        .admin-table th, .admin-table td {
-            border: 1px solid #cbd5e1;
-            padding: 10px 8px;
-            text-align: center;
-        }
-
-        .admin-table th {
-            background: var(--primary);
-            color: white;
-            position: sticky;
-            top: 0;
-        }
-
-        .admin-table tr:nth-child(even) {
-            background: #f8fafc;
-        }
-
-        .badge {
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 12px;
-        }
-        .badge-O { background: #e8f5e9; color: var(--success); }
-        .badge-X { background: #ffebee; color: var(--danger); }
-        .badge-L { background: #fff8e1; color: #f57f17; } /* £ 對應字 */
-        .badge-P { background: #fff8e1; color: #e65100; }
-
-        /* 自訂彈出警告/成功視窗 */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 200;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .modal-content {
-            background: white;
-            width: 100%;
-            max-width: 400px;
-            border-radius: 16px;
-            padding: 25px;
-            text-align: center;
-        }
-
-        .modal-icon {
-            font-size: 60px;
-            margin-bottom: 15px;
-        }
-        
-        .modal-icon.success { color: var(--success); }
-        .modal-icon.warning { color: #f57f17; }
-
-        .summary-box {
-            background: #f1f5f9;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: left;
-            margin: 15px 0;
-            font-size: 14px;
-            max-height: 200px;
-            overflow-y: auto;
-            white-space: pre-wrap;
-        }
-
-        /* 管理登入按鈕 */
-        .admin-login-link {
-            text-align: center;
-            padding: 30px 0;
-            font-size: 14px;
-            color: #94a3b8;
-            cursor: pointer;
-            text-decoration: underline;
-        }
+        .bottom-bar { position: fixed; bottom: 0; width: 100%; max-width: 500px; background: #ffffff; padding: 15px; box-shadow: 0 -5px 15px rgba(0,0,0,0.1); border-top: 1px solid #e2e8f0; z-index: 100; }
+        .submit-btn { width: 100%; background: var(--success); color: white; border: none; padding: 16px; font-size: 20px; font-weight: bold; border-radius: 8px; cursor: pointer; }
+        .submit-btn:disabled { background: #94a3b8; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 200; justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { background: white; width: 100%; max-width: 400px; border-radius: 16px; padding: 25px; text-align: center; }
+        .summary-box { background: #f1f5f9; padding: 15px; border-radius: 8px; text-align: left; margin: 15px 0; font-size: 14px; max-height: 200px; overflow-y: auto; white-space: pre-wrap; }
     </style>
 </head>
 <body>
 
-<div class="app-container" id="vendorView">
+<div class="app-container">
     <div class="app-header">
         <h1>遠雄悅來大飯店</h1>
         <p>端午節【休市＆供貨】線上調查系統</p>
@@ -363,7 +49,7 @@
 
     <div class="notice-card">
         <i class="fa-solid fa-circle-info" style="color:var(--accent)"></i> 
-        <strong>填寫說明：</strong>請在下方輸入您的公司名稱，並針對 6/8 ~ 6/21 (共2週) 的每一天點選供貨狀態。填寫完畢後請點擊最下方按鈕送出。<strong>請於 6/1 前完成。</strong>
+        <strong>填寫說明：</strong>請在下方輸入您的公司名稱，並針對 6/8 ~ 6/21 (共2週) 的每一天點選供貨狀態，完成後點擊最下方按鈕送出。
     </div>
 
     <div class="form-group">
@@ -371,18 +57,12 @@
         <input type="text" id="companyName" class="input-control" placeholder="例：遠雄蔬果物流公司" required>
     </div>
 
-    <div class="calendar-list">
-        <div class="section-title">2. 請選擇每日營運狀況 (共 14 天)</div>
-        <div id="dateRowsContainer"></div>
-    </div>
+    <div class="section-title">2. 請選擇每日營運狀況 (共 14 天)</div>
+    <div id="dateRowsContainer"></div>
 
     <div class="form-group" style="margin-top: 20px;">
         <label>3. 備註說明 (選填)</label>
         <textarea id="memo" class="input-control" rows="3" placeholder="如有特殊供貨時間或事項，請在此處說明..."></textarea>
-    </div>
-
-    <div class="admin-login-link" onclick="promptAdminLogin()">
-        <i class="fa-solid fa-lock"></i> 採購室內部管理入口
     </div>
 
     <div class="bottom-bar">
@@ -392,443 +72,76 @@
     </div>
 </div>
 
-<!-- 採購室管理後台介面 (預設隱藏) -->
-<div class="app-container" id="adminView" style="display: none; max-width: 1000px;">
-    <div class="app-header">
-        <h1>遠雄悅來大飯店</h1>
-        <p>端午節供貨調查 - 採購管理後台</p>
-    </div>
-    
-    <div class="admin-panel">
-        <div class="admin-header">
-            <h2><i class="fa-solid fa-database"></i> 廠商回覆即時總覽</h2>
-            <button class="submit-btn" style="background:var(--primary); padding: 8px 15px; font-size:14px; width:auto;" onclick="exitAdmin()">
-                <i class="fa-solid fa-right-from-bracket"></i> 返回填寫頁
-            </button>
-        </div>
-
-        <div style="display: flex; gap:10px; margin-bottom: 15px;">
-            <button class="submit-btn" style="background:#0284c7; padding: 12px; font-size:16px;" onclick="copyTableForExcel()">
-                <i class="fa-solid fa-file-excel"></i> 一鍵複製為 Excel 格式 (貼到 Excel 即可)
-            </button>
-        </div>
-
-        <div class="admin-table-wrapper">
-            <table class="admin-table" id="resultsTable">
-                <thead>
-                    <tr id="tableHeader">
-                        <th>填寫時間</th>
-                        <th>廠商名稱</th>
-                        <!-- 日期欄位會由 JS 動態生成 -->
-                        <th>備註說明</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    <tr>
-                        <td colspan="17" style="color:#64748b; padding: 30px;">目前尚無廠商回覆資料。</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-<!-- 自訂通用模態彈窗 -->
-<div class="modal" id="customModal">
+<div class="modal" id="successModal">
     <div class="modal-content">
-        <div id="modalIcon" class="modal-icon"></div>
-        <h2 id="modalTitle" style="margin:0; color:#1e293b;">提示</h2>
-        <p id="modalDesc" style="color:#64748b; margin: 10px 0;"></p>
-        <div class="summary-box" id="summaryText" style="display: none;"></div>
-        <p id="modalTip" style="font-size:13px; color:var(--danger); font-weight:bold; display: none;"></p>
-        <button id="modalBtn" class="submit-btn" style="background:var(--primary); margin-top: 10px;" onclick="closeModal()">確認</button>
+        <i class="fa-solid fa-circle-check" style="font-size: 60px; color: var(--success);"></i>
+        <h2 style="margin:10px 0;">送出成功！</h2>
+        <p style="color:#64748b;">資料已安全寫入飯店雲端試算表。</p>
+        <div class="summary-box" id="summaryText"></div>
+        <button class="submit-btn" style="background:var(--primary);" onclick="location.reload()">確定</button>
     </div>
 </div>
-
-<!-- 引入 Firebase (模組載入方式) -->
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-    import { getFirestore, doc, setDoc, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-    let db = null;
-    let auth = null;
-    let appId = 'default-app-id';
-    let isFirebaseReady = false;
-
-    try {
-        // 只有在配置存在時才初始化 Firebase
-        if (typeof __firebase_config !== 'undefined' && __firebase_config) {
-            const firebaseConfig = JSON.parse(__firebase_config);
-            const app = initializeApp(firebaseConfig);
-            auth = getAuth(app);
-            db = getFirestore(app);
-            appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-
-            // 將 Firebase 核心函數綁定到 window，解決外部 script 存取不到的問題
-            window.db = db;
-            window.appId = appId;
-            window.auth = auth;
-            window.doc = doc;
-            window.setDoc = setDoc;
-            window.collection = collection;
-            window.onSnapshot = onSnapshot;
-            
-            isFirebaseReady = true;
-            window.isFirebaseReady = true;
-
-            // 匿名登入 (確保滿足規則 3)
-            signInAnonymously(auth).then((userCredential) => {
-                onAuthStateChanged(auth, (user) => {
-                    if (user) {
-                        console.log("已建立雲端安全連線:", user.uid);
-                        startListeningData();
-                    }
-                });
-            }).catch(err => {
-                console.error("Firebase Auth 失敗:", err);
-            });
-        } else {
-            console.warn("未檢測到 Firebase 配置，自動啟用本機離線模擬模式（資料將儲存在此瀏覽器中）。");
-            window.isFirebaseReady = false;
-            // 在沒有 Firebase 的情況下，也直接載入本機資料
-            setTimeout(() => {
-                startListeningData();
-            }, 100);
-        }
-    } catch (err) {
-        console.error("Firebase 初始化遭遇異常，啟用模擬模式:", err);
-        window.isFirebaseReady = false;
-        setTimeout(() => {
-            startListeningData();
-        }, 100);
-    }
-</script>
 
 <script>
-    // 2 週 (14 天) 日期資料
+    // ⚠️ 請把引號內的文字換成您部署產生的 Google 網址 ⚠️
+    const GAS_URL = "把這八個字換成您剛剛複製的Google網址";
+
     const surveyDates = [
-        { date: "6/8", week: "週一", tag: "" },
-        { date: "6/9", week: "週二", tag: "" },
-        { date: "6/10", week: "週三", tag: "" },
-        { date: "6/11", week: "週四", tag: "" },
-        { date: "6/12", week: "週五", tag: "" },
-        { date: "6/13", week: "週六", tag: "" },
-        { date: "6/14", week: "週日", tag: "" },
-        { date: "6/15", week: "週一", tag: "" },
-        { date: "6/16", week: "週二", tag: "" },
-        { date: "6/17", week: "週三", tag: "" },
-        { date: "6/18", week: "週四", tag: "" },
-        { date: "6/19", week: "週五", tag: "端午節", isHoliday: true },
-        { date: "6/20", week: "週六", tag: "端午連假", isHoliday: true },
-        { date: "6/21", week: "週日", tag: "端午連假", isHoliday: true }
+        { date: "6/8", week: "週一", tag: "" }, { date: "6/9", week: "週二", tag: "" },
+        { date: "6/10", week: "週三", tag: "" }, { date: "6/11", week: "週四", tag: "" },
+        { date: "6/12", week: "週五", tag: "" }, { date: "6/13", week: "週六", tag: "" },
+        { date: "6/14", week: "週日", tag: "" }, { date: "6/15", week: "週一", tag: "" },
+        { date: "6/16", week: "週二", tag: "" }, { date: "6/17", week: "週三", tag: "" },
+        { date: "6/18", week: "週四", tag: "" }, 
+        { date: "6/19", week: "週五", tag: "端午節" },
+        { date: "6/20", week: "週六", tag: "端午連假" },
+        { date: "6/21", week: "週日", tag: "端午連假" }
     ];
 
     const options = [
-        { symbol: "O", name: "正常" },
-        { symbol: "X", name: "休息" },
-        { symbol: "£", name: "外地最後出貨" },
-        { symbol: "P", name: "最後出貨" }
+        { s: "O", n: "正常" }, { s: "X", n: "休息" },
+        { s: "£", n: "外地出貨" }, { s: "P", n: "最後出貨" }
     ];
 
-    // 動態建置廠商填寫介面
     const container = document.getElementById('dateRowsContainer');
     surveyDates.forEach((d, idx) => {
         const row = document.createElement('div');
         row.className = 'date-row';
-        
-        let tagHtml = d.tag ? `<span class="date-tag ${d.isHoliday ? 'holiday' : ''}">${d.tag}</span>` : '';
-        
-        let optionsHtml = options.map(opt => `
-            <div class="opt-btn" data-date="${d.date}" data-val="${opt.symbol}" onclick="selectOption(this, ${idx})">
-                <span class="symbol">${opt.symbol}</span>
-                <span class="opt-name">${opt.name}</span>
-            </div>
-        `).join('');
-
-        row.innerHTML = `
-            <div class="date-info">
-                <div class="date-text">${d.date} <span style="font-size:16px; color:#64748b;">(${d.week})</span></div>
-                ${tagHtml}
-            </div>
-            <div class="option-grid">
-                ${optionsHtml}
-            </div>
-        `;
+        row.innerHTML = `<div class="date-info"><div><b>${d.date}</b> (${d.week})</div>${d.tag ? `<span class="date-tag">${d.tag}</span>`:''}</div><div class="option-grid">${options.map(o => `<div class="opt-btn" data-date="${d.date}" data-val="${o.s}" onclick="sel(this)"><span class="symbol">${o.s}</span><span class="opt-name">${o.n}</span></div>`).join('')}</div>`;
         container.appendChild(row);
     });
 
-    // 動態建置後台表格日期標頭
-    const tableHeader = document.getElementById('tableHeader');
-    surveyDates.forEach(d => {
-        const th = document.createElement('th');
-        th.innerText = `${d.date}\n(${d.week.replace('週','')})`;
-        tableHeader.insertBefore(th, tableHeader.lastElementChild);
-    });
-
     let answers = {};
-    let allSubmissions = []; // 存放所有廠商回覆（含雲端或本機）
-
-    function selectOption(element, index) {
-        const date = element.getAttribute('data-date');
-        const val = element.getAttribute('data-val');
-        
-        const siblings = element.parentNode.querySelectorAll('.opt-btn');
-        siblings.forEach(sib => sib.classList.remove('active'));
-        
-        element.classList.add('active');
-        answers[date] = val;
+    function sel(el) {
+        el.parentNode.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('active'));
+        el.classList.add('active');
+        answers[el.dataset.date] = el.dataset.val;
     }
 
-    // 儲存與傳送
     async function submitForm() {
-        const compName = document.getElementById('companyName').value.trim();
-        if (!compName) {
-            showAlert('warning', '請輸入名稱', '⚠️ 請輸入您的「公司名稱」再送出喔！');
-            document.getElementById('companyName').focus();
-            return;
-        }
+        const name = document.getElementById('companyName').value.trim();
+        if (!name) { alert('⚠️ 請輸入您的公司名稱！'); return; }
+        if (Object.keys(answers).length < 14) { alert('⚠️ 您還有日期尚未選擇狀態喔！'); return; }
 
-        const unanswred = surveyDates.filter(d => !answers[d.date]);
-        if (unanswred.length > 0) {
-            showAlert('warning', '資料未填完', `⚠️ 您還有 ${unanswred.length} 天還沒選擇狀態喔！請往下檢查看看。`);
-            return;
-        }
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true; btn.innerText = "雲端儲存中...";
 
-        const submitBtn = document.getElementById('submitBtn');
-        submitBtn.disabled = true;
-        submitBtn.innerText = "資料傳送中...";
-
-        const docId = `${compName}_${Date.now()}`;
-        const submissionData = {
-            companyName: compName,
+        const payload = {
+            companyName: name,
             memo: document.getElementById('memo').value.trim(),
             answers: answers,
             submittedAt: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' })
         };
 
         try {
-            // 雲端儲存模式
-            if (window.isFirebaseReady && window.db && window.setDoc && window.doc) {
-                const docRef = window.doc(window.db, 'artifacts', window.appId, 'public', 'data', 'survey_results', docId);
-                await window.setDoc(docRef, submissionData);
-            } else {
-                // 離線模擬存儲（寫入 localStorage）
-                let offlineData = JSON.parse(localStorage.getItem('offline_survey_results') || '[]');
-                offlineData.push(submissionData);
-                localStorage.setItem('offline_survey_results', JSON.stringify(offlineData));
-                
-                // 本機立即更新後台視圖
-                allSubmissions = offlineData;
-                allSubmissions.sort((a,b) => new Date(b.submittedAt) - new Date(a.submittedAt));
-                renderAdminTable();
-            }
-
-            // 組合顯示摘要
-            let resultText = `🏢 公司名稱: ${compName}\n`;
-            resultText += `📝 備註事項: ${document.getElementById('memo').value.trim() || '無'}\n`;
-            resultText += `-------------------------\n`;
-            surveyDates.forEach(d => {
-                let statusName = "";
-                switch(answers[d.date]) {
-                    case 'O': statusName = "正常供貨"; break;
-                    case 'X': statusName = "休息日"; break;
-                    case '£': statusName = "外地最後出貨"; break;
-                    case 'P': statusName = "最後出貨"; break;
-                    default: statusName = answers[d.date];
-                }
-                resultText += `📅 ${d.date} (${d.week})：【 ${statusName} 】\n`;
-            });
-
-            const modeMessage = (window.isFirebaseReady) ? '資料已安全送達採購室雲端系統！' : '本機模擬儲存成功！(未檢測到雲端設定，已將資料存於此瀏覽器)';
-            showAlert('success', '儲存成功！', modeMessage + '\n\n以下是您的填寫紀錄：', resultText, true);
-            
-            // 重設表單
-            document.getElementById('companyName').value = '';
-            document.getElementById('memo').value = '';
-            document.querySelectorAll('.opt-btn').forEach(btn => btn.classList.remove('active'));
-            answers = {};
-
-        } catch (error) {
-            console.error("儲存失敗:", error);
-            showAlert('warning', '上傳失敗', '連線異常，請檢查網路後重新點選送出！');
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.innerText = "確認填寫無誤，送出資料";
+            await fetch(GAS_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
+            document.getElementById('summaryText').innerText = `已成功為【${name}】完成登記，資料已傳送至採購室。`;
+            document.getElementById('successModal').style.display = 'flex';
+        } catch (e) {
+            alert('傳送失敗，請檢查網路連線！');
+            btn.disabled = false; btn.innerText = "確認填寫無誤，送出資料";
         }
-    }
-
-    // 監聽數據
-    function startListeningData() {
-        // 如果是雲端模式
-        if (window.isFirebaseReady && window.db && window.collection && window.onSnapshot) {
-            const q = window.collection(window.db, 'artifacts', window.appId, 'public', 'data', 'survey_results');
-            window.onSnapshot(q, (snapshot) => {
-                allSubmissions = [];
-                snapshot.forEach(doc => {
-                    allSubmissions.push(doc.data());
-                });
-                allSubmissions.sort((a,b) => new Date(b.submittedAt) - new Date(a.submittedAt));
-                renderAdminTable();
-            }, (error) => {
-                console.error("資料讀取失敗，啟用本機離線備份:", error);
-                loadOfflineData();
-            });
-        } else {
-            // 離線模擬載入
-            loadOfflineData();
-        }
-    }
-
-    function loadOfflineData() {
-        allSubmissions = JSON.parse(localStorage.getItem('offline_survey_results') || '[]');
-        allSubmissions.sort((a,b) => new Date(b.submittedAt) - new Date(a.submittedAt));
-        renderAdminTable();
-    }
-
-    // 渲染管理員表格
-    function renderAdminTable() {
-        const tbody = document.getElementById('tableBody');
-        if (allSubmissions.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="17" style="color:#64748b; padding: 30px;">目前尚無廠商回覆資料。</td></tr>`;
-            return;
-        }
-
-        tbody.innerHTML = '';
-        allSubmissions.forEach(sub => {
-            const tr = document.createElement('tr');
-            
-            let html = `
-                <td style="color:#64748b; font-size:11px;">${sub.submittedAt || ''}</td>
-                <td style="font-weight:bold; color:var(--primary); font-size:14px; text-align:left;">${sub.companyName}</td>
-            `;
-
-            surveyDates.forEach(d => {
-                const val = sub.answers[d.date] || '-';
-                let displayVal = val;
-                if(val === '£') displayVal = '外地';
-                if(val === 'P') displayVal = '最後';
-                html += `<td><span class="badge badge-${val}">${displayVal}</span></td>`;
-            });
-
-            html += `<td style="text-align:left; color:#475569; max-width:150px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${sub.memo || ''}">${sub.memo || '無'}</td>`;
-            
-            tr.innerHTML = html;
-            tbody.appendChild(tr);
-        });
-    }
-
-    // 複製為 Excel
-    function copyTableForExcel() {
-        if (allSubmissions.length === 0) {
-            showAlert('warning', '無資料可複製', '目前尚未有任何廠商填寫回覆。');
-            return;
-        }
-
-        let excelText = "提交時間\t廠商名稱\t" + surveyDates.map(d => `${d.date}(${d.week})`).join('\t') + "\t備註說明\n";
-        
-        allSubmissions.forEach(sub => {
-            let rowData = [];
-            rowData.push(sub.submittedAt || '');
-            rowData.push(sub.companyName);
-            
-            surveyDates.forEach(d => {
-                const val = sub.answers[d.date] || '';
-                let translateVal = "";
-                switch(val) {
-                    case 'O': translateVal = "正常供貨"; break;
-                    case 'X': translateVal = "休息日"; break;
-                    case '£': translateVal = "外地最後出貨"; break;
-                    case 'P': translateVal = "最後出貨"; break;
-                    default: translateVal = val;
-                }
-                rowData.push(translateVal);
-            });
-            
-            rowData.push(sub.memo || '無');
-            excelText += rowData.join('\t') + "\n";
-        });
-
-        const tempTextarea = document.createElement('textarea');
-        tempTextarea.value = excelText;
-        tempTextarea.style.position = 'fixed';
-        tempTextarea.style.opacity = '0';
-        document.body.appendChild(tempTextarea);
-        tempTextarea.select();
-        
-        try {
-            document.execCommand('copy');
-            showAlert('success', '複製成功！', '表格已成功複製至剪貼簿！請直接打開 Excel 軟體，點選第一格按下「Ctrl + V (貼上)」，整齊的表格就出來囉！');
-        } catch (err) {
-            showAlert('warning', '複製失敗', '瀏覽器不支援此複製方式，請手動選取表格複製。');
-        } finally {
-            document.body.removeChild(tempTextarea);
-        }
-    }
-
-    function promptAdminLogin() {
-        const password = prompt("🔑 請輸入採購室管理密碼 (4碼分機)：");
-        if (password === null) return;
-        
-        if (password === "8123") {
-            document.getElementById('vendorView').style.display = 'none';
-            document.getElementById('adminView').style.display = 'block';
-            document.querySelector('.admin-panel').style.display = 'block';
-            window.scrollTo(0,0);
-        } else {
-            showAlert('warning', '密碼錯誤', '⚠️ 密碼不正確，請重新輸入！');
-        }
-    }
-
-    function exitAdmin() {
-        document.getElementById('adminView').style.display = 'none';
-        document.getElementById('vendorView').style.display = 'block';
-        window.scrollTo(0,0);
-    }
-
-    function showAlert(type, title, desc, summary = '', showTip = false) {
-        const modal = document.getElementById('customModal');
-        const iconDiv = document.getElementById('modalIcon');
-        const titleH2 = document.getElementById('modalTitle');
-        const descP = document.getElementById('modalDesc');
-        const summaryBox = document.getElementById('summaryText');
-        const tipP = document.getElementById('modalTip');
-        const btn = document.getElementById('modalBtn');
-
-        if (type === 'success') {
-            iconDiv.className = 'modal-icon success';
-            iconDiv.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
-            btn.style.background = 'var(--success)';
-        } else {
-            iconDiv.className = 'modal-icon warning';
-            iconDiv.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
-            btn.style.background = 'var(--primary)';
-        }
-
-        titleH2.innerText = title;
-        descP.innerText = desc;
-
-        if (summary) {
-            summaryBox.innerText = summary;
-            summaryBox.style.display = 'block';
-        } else {
-            summaryBox.style.display = 'none';
-        }
-
-        if (showTip) {
-            tipP.style.display = 'block';
-            tipP.innerText = '💡 建議長輩老闆可以將此畫面「拍照/截圖」發給飯店採購留底喔！';
-        } else {
-            tipP.style.display = 'none';
-        }
-
-        modal.style.display = 'flex';
-    }
-
-    function closeModal() {
-        document.getElementById('customModal').style.display = 'none';
     }
 </script>
-
 </body>
 </html>
