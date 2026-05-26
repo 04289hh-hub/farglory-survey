@@ -83,5 +83,65 @@
 </div>
 
 <script>
-    // 這裡已經換成您提供給我的遠雄官方 Web App 金鑰網址
-    const GAS_URL = "
+    // ⚠️ 請記得將下方引號內的網址換成您在步驟三複製的真實 Google /exec 網址 ⚠️
+    const GAS_URL = "https://script.google.com/macros/s/換成您自己的ID/exec";
+
+    const surveyDates = [
+        { date: "6/8", week: "週一", tag: "" }, { date: "6/9", week: "週二", tag: "" },
+        { date: "6/10", week: "週三", tag: "" }, { date: "6/11", week: "週四", tag: "" },
+        { date: "6/12", week: "週五", tag: "" }, { date: "6/13", week: "週六", tag: "" },
+        { date: "6/14", week: "週日", tag: "" }, { date: "6/15", week: "週一", tag: "" },
+        { date: "6/16", week: "週二", tag: "" }, { date: "6/17", week: "週三", tag: "" },
+        { date: "6/18", week: "週四", tag: "" }, 
+        { date: "6/19", week: "週五", tag: "端午節" },
+        { date: "6/20", week: "週六", tag: "端午連假" },
+        { date: "6/21", week: "週日", tag: "端午連假" }
+    ];
+
+    const options = [
+        { s: "O", n: "正常" }, { s: "X", n: "休息" },
+        { s: "£", n: "外地出貨" }, { s: "P", n: "最後出貨" }
+    ];
+
+    const container = document.getElementById('dateRowsContainer');
+    surveyDates.forEach((d, idx) => {
+        const row = document.createElement('div');
+        row.className = 'date-row';
+        row.innerHTML = `<div class="date-info"><div><b>${d.date}</b> (${d.week})</div>${d.tag ? `<span class="date-tag">${d.tag}</span>`:''}</div><div class="option-grid">${options.map(o => `<div class="opt-btn" data-date="${d.date}" data-val="${o.s}" onclick="sel(this)"><span class="symbol">${o.s}</span><span class="opt-name">${o.n}</span></div>`).join('')}</div>`;
+        container.appendChild(row);
+    });
+
+    let answers = {};
+    function sel(el) {
+        el.parentNode.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('active'));
+        el.classList.add('active');
+        answers[el.dataset.date] = el.dataset.val;
+    }
+
+    async function submitForm() {
+        const name = document.getElementById('companyName').value.trim();
+        if (!name) { alert('⚠️ 請輸入您的公司名稱！'); return; }
+        if (Object.keys(answers).length < 14) { alert('⚠️ 您還有日期尚未選擇狀態喔！'); return; }
+
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true; btn.innerText = "雲端儲存中...";
+
+        const payload = {
+            companyName: name,
+            memo: document.getElementById('memo').value.trim(),
+            answers: answers,
+            submittedAt: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' })
+        };
+
+        try {
+            await fetch(GAS_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
+            document.getElementById('summaryText').innerText = `已成功為【${name}】完成登記，資料已傳送至採購室。`;
+            document.getElementById('successModal').style.display = 'flex';
+        } catch (e) {
+            alert('傳送失敗，請檢查網路連線！');
+            btn.disabled = false; btn.innerText = "確認填寫無誤，送出資料";
+        }
+    }
+</script>
+</body>
+</html>
