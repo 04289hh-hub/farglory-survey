@@ -8,7 +8,7 @@
     <style>
         :root { --primary: #003366; --accent: #d4af37; --success: #2e7d32; --danger: #c62828; --bg: #f8fafc; }
         * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--bg); margin: 0; padding: 0; color: #334155; display: flex; justify-content: center; }
+        body { background-color: var(--bg); margin: 0; padding: 0; display: flex; justify-content: center; }
         .app-container { width: 100%; max-width: 500px; background: #ffffff; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.1); position: relative; padding-bottom: 100px; }
         .app-header { background: linear-gradient(135deg, var(--primary), #001f42); color: white; padding: 25px 20px; text-align: center; border-bottom: 4px solid var(--accent); }
         .app-header h1 { margin: 0; font-size: 24px; letter-spacing: 1px; }
@@ -18,17 +18,15 @@
         .form-group label { display: block; font-weight: bold; font-size: 18px; margin-bottom: 8px; color: var(--primary); }
         .form-group label span { color: var(--danger); margin-left: 4px; }
         .input-control { width: 100%; padding: 14px; font-size: 18px; border: 2px solid #cbd5e1; border-radius: 8px; outline: none; }
-        .calendar-list { padding: 0 15px; }
-        .section-title { font-size: 18px; font-weight: bold; color: var(--primary); margin: 20px 0 10px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px; }
-        .date-row { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 15px; margin-bottom: 12px; }
+        .section-title { font-size: 18px; font-weight: bold; color: var(--primary); margin: 20px 0 10px 15px; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px; }
+        .date-row { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 15px; margin: 0 15px 12px 15px; }
         .date-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
         .date-text { font-size: 20px; font-weight: bold; color: #1e293b; }
-        .date-tag { background: #f1f5f9; padding: 4px 8px; border-radius: 6px; font-size: 13px; color: #64748b; font-weight: bold; }
-        .date-tag.holiday { background: #ffedd5; color: #ea580c; }
+        .date-tag { background: #ffedd5; color: #ea580c; padding: 4px 8px; border-radius: 6px; font-size: 13px; font-weight: bold; }
         .option-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
         .opt-btn { background: #f8fafc; border: 2px solid #cbd5e1; border-radius: 8px; padding: 10px 2px; text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 75px; }
         .opt-btn .symbol { font-size: 22px; font-weight: bold; }
-        .opt-btn .opt-name { font-size: 11px; font-weight: bold; }
+        .opt-btn .opt-name { font-size: 11px; font-weight: bold; line-height: 1.2; }
         .opt-btn[data-val="O"].active { background: #e8f5e9; border-color: var(--success); color: var(--success); }
         .opt-btn[data-val="X"].active { background: #ffebee; border-color: var(--danger); color: var(--danger); }
         .opt-btn[data-val="£"].active { background: #fff8e1; border-color: #f57f17; color: #f57f17; }
@@ -38,10 +36,7 @@
         .submit-btn:disabled { background: #94a3b8; }
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 200; justify-content: center; align-items: center; padding: 20px; }
         .modal-content { background: white; width: 100%; max-width: 400px; border-radius: 16px; padding: 25px; text-align: center; }
-        .modal-icon { font-size: 60px; margin-bottom: 15px; }
-        .modal-icon.success { color: var(--success); }
-        .modal-icon.warning { color: #f57f17; }
-        .summary-box { background: #f1f5f9; padding: 15px; border-radius: 8px; text-align: left; margin: 15px 0; font-size: 14px; max-height: 180px; overflow-y: auto; white-space: pre-wrap; }
+        .summary-box { background: #f1f5f9; padding: 15px; border-radius: 8px; text-align: left; margin: 15px 0; font-size: 14px; max-height: 200px; overflow-y: auto; white-space: pre-wrap; }
     </style>
 </head>
 <body>
@@ -52,152 +47,4 @@
         <p>端午節【休市＆供貨】線上調查系統</p>
     </div>
 
-    <div class="notice-card">
-        <i class="fa-solid fa-circle-info" style="color:var(--accent)"></i> 
-        <strong>填寫說明：</strong>請在下方輸入您的公司名稱，並針對兩週內每一天點選供貨狀態，完成後點擊最下方按鈕送出。
-    </div>
-
-    <div class="form-group">
-        <label>1. 您的公司名稱<span>*</span></label>
-        <input type="text" id="companyName" class="input-control" placeholder="例：遠雄蔬果物流公司" required>
-    </div>
-
-    <div class="calendar-list">
-        <div class="section-title">2. 請選擇每日營運狀況 (共 14 天)</div>
-        <div id="dateRowsContainer"></div>
-    </div>
-
-    <div class="form-group" style="margin-top: 20px;">
-        <label>3. 備註說明 (選填)</label>
-        <textarea id="memo" class="input-control" rows="3" placeholder="如有特殊供貨時間，請在此說明..."></textarea>
-    </div>
-
-    <div class="bottom-bar">
-        <button type="button" class="submit-btn" id="submitBtn" onclick="submitForm()">
-            <i class="fa-solid fa-paper-plane"></i> 確認填寫無誤，送出資料
-        </button>
-    </div>
-</div>
-
-<div class="modal" id="customModal">
-    <div class="modal-content">
-        <div id="modalIcon" class="modal-icon"></div>
-        <h2 id="modalTitle" style="margin:0;">提示</h2>
-        <p id="modalDesc" style="color:#64748b; margin: 10px 0;"></p>
-        <div class="summary-box" id="summaryText" style="display: none;"></div>
-        <button id="modalBtn" class="submit-btn" style="background:var(--primary); margin-top: 10px;" onclick="closeModal()">確認</button>
-    </div>
-</div>
-
-<script>
-    // 這裡請換上您的 Google 網頁應用程式網址 (部署後產生的 exec 網址)
-    const GOOGLE_WEB_APP_URL = "YOUR_GOOGLE_WEB_APP_URL";
-
-    const surveyDates = [
-        { date: "6/8", week: "週一", tag: "" }, { date: "6/9", week: "週二", tag: "" },
-        { date: "6/10", week: "週三", tag: "" }, { date: "6/11", week: "週四", tag: "" },
-        { date: "6/12", week: "週五", tag: "" }, { date: "6/13", week: "週六", tag: "" },
-        { date: "6/14", week: "週日", tag: "" }, { date: "6/15", week: "週一", tag: "" },
-        { date: "6/16", week: "週二", tag: "" }, { date: "6/17", week: "週三", tag: "" },
-        { date: "6/18", week: "週四", tag: "" }, 
-        { date: "6/19", week: "週五", tag: "端午節", isHoliday: true },
-        { date: "6/20", week: "週六", tag: "端午連假", isHoliday: true },
-        { date: "6/21", week: "週日", tag: "端午連假", isHoliday: true }
-    ];
-
-    const options = [
-        { symbol: "O", name: "正常" }, { symbol: "X", name: "休息" },
-        { symbol: "£", name: "外地出貨" }, { symbol: "P", name: "最後出貨" }
-    ];
-
-    const container = document.getElementById('dateRowsContainer');
-    surveyDates.forEach((d, idx) => {
-        const row = document.createElement('div');
-        row.className = 'date-row';
-        let tagHtml = d.tag ? `<span class="date-tag ${d.isHoliday ? 'holiday' : ''}">${d.tag}</span>` : '';
-        let optionsHtml = options.map(opt => `
-            <div class="opt-btn" data-date="${d.date}" data-val="${opt.symbol}" onclick="selectOption(this)">
-                <span class="symbol">${opt.symbol}</span>
-                <span class="opt-name">${opt.name}</span>
-            </div>
-        `).join('');
-        row.innerHTML = `<div class="date-info"><div class="date-text">${d.date} <span style="font-size:14px; color:#64748b;">(${d.week})</span></div>${tagHtml}</div><div class="option-grid">${optionsHtml}</div>`;
-        container.appendChild(row);
-    });
-
-    let answers = {};
-    function selectOption(element) {
-        const date = element.getAttribute('data-date');
-        const val = element.getAttribute('data-val');
-        element.parentNode.querySelectorAll('.opt-btn').forEach(sib => sib.classList.remove('active'));
-        element.classList.add('active');
-        answers[date] = val;
-    }
-
-    async function submitForm() {
-        const compName = document.getElementById('companyName').value.trim();
-        if (!compName) { alert('⚠️ 請輸入您的公司名稱！'); return; }
-        const unanswred = surveyDates.filter(d => !answers[d.date]);
-        if (unanswred.length > 0) { alert(`⚠️ 您還有 ${unanswred.length} 天沒選供貨狀態喔！`); return; }
-
-        if (GOOGLE_WEB_APP_URL === "YOUR_GOOGLE_WEB_APP_URL") {
-            alert("❌ 請採購同仁先在程式碼中配置正確的 GOOGLE_WEB_APP_URL 金鑰網址！");
-            return;
-        }
-
-        const submitBtn = document.getElementById('submitBtn');
-        submitBtn.disabled = true;
-        submitBtn.innerText = "雲端儲存中...";
-
-        const payload = {
-            companyName: compName,
-            memo: document.getElementById('memo').value.trim(),
-            answers: answers,
-            submittedAt: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' })
-        };
-
-        try {
-            // 使用 Fetch API 將資料傳送至 Google Apps Script
-            const response = await fetch(GOOGLE_WEB_APP_URL, {
-                method: "POST",
-                mode: "no-cors", // 繞過跨網域限制
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            });
-
-            // 組合顯示摘要
-            let resultText = `🏢 廠商: ${compName}\n-------------------------\n`;
-            surveyDates.forEach(d => {
-                let s = answers[d.date] === 'O' ? '正常' : answers[d.date] === 'X' ? '休息' : answers[d.date] === '£' ? '外地最後' : '最後出貨';
-                resultText += `📅 ${d.date}：【 ${s} 】\n`;
-            });
-
-            showAlert('success', '送出成功！', '資料已直接寫入採購室雲端試算表。感謝您的配合！', resultText);
-            document.getElementById('companyName').value = '';
-            document.getElementById('memo').value = '';
-            document.querySelectorAll('.opt-btn').forEach(btn => btn.classList.remove('active'));
-            answers = {};
-        } catch (error) {
-            console.error(error);
-            showAlert('warning', '傳送失敗', '請確認網路連線是否正常，或聯繫飯店採購人員。');
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.innerText = "確認填寫無誤，送出資料";
-        }
-    }
-
-    function showAlert(type, title, desc, summary = '') {
-        const modal = document.getElementById('customModal');
-        const iconDiv = document.getElementById('modalIcon');
-        iconDiv.className = 'modal-icon ' + (type === 'success' ? 'success' : 'warning');
-        iconDiv.innerHTML = type === 'success' ? '<i class="fa-solid fa-circle-check"></i>' : '<i class="fa-solid fa-triangle-exclamation"></i>';
-        document.getElementById('modalTitle').innerText = title;
-        document.getElementById('modalDesc').innerText = desc;
-        const sBox = document.getElementById('summaryText');
-        if (summary) { sBox.innerText = summary; sBox.style.display = 'block'; } else { sBox.style.display = 'none'; }
-        modal.style.display = 'flex';
-    }
-    function closeModal() { document.getElementById('customModal').style.display = 'none'; }
-</script>
-</body>
-</html>
+    <div class
